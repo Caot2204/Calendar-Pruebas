@@ -44,4 +44,10 @@ public class CalendarioPruebas {
         
     }
     
+    public boolean esBisiesto() {
+        boolean bisiesto = false;
+        
+        return bisiesto;
+    }
+    
 }
