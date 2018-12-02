@@ -68,9 +68,42 @@ public class CalendarioPruebas {
     }
 
     private static void leerFecha() {
-        System.out.print("\nIngrese la fecha en formato mm-dd-yyyy: ");
         Scanner scanner = new Scanner(System.in);
-        fecha = scanner.next();
+        do {
+            System.out.print("\nIngrese la fecha en formato mm-dd-yyyy: ");
+            fecha = scanner.next();
+        } while (!validarFecha());
+    }
+    
+    private static boolean validarFecha() {
+        boolean fechaValida = false;
+        int[] diasPorMes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        String[] valores = fecha.split("-");
+        dia = Integer.parseInt(valores[1]);
+        mes = Integer.parseInt(valores[0]);
+        anio = Integer.parseInt(valores[2]);
+        
+        if ((mes >= 1 && mes <= 12) && (anio > 0)) {
+            if (mes == 2) {
+                if (esBisiesto() && dia <= 29) {
+                    fechaValida = true;
+                } else if (!esBisiesto() && dia <= 28) {
+                    fechaValida = true;
+                } else {
+                    System.out.println("Dia invalido para febreo");
+                }                
+            } else {
+                if (dia <= diasPorMes[mes - 1]) {
+                    fechaValida = true;
+                } else {
+                    System.out.println("dia invalido");
+                }
+            }            
+        } else {
+            System.out.println("El mes o el anio es invalido");
+        }
+        
+        return fechaValida;
     }
 
     private static String determinarSiguienteDia() {
