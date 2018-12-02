@@ -74,7 +74,7 @@ public class CalendarioPruebas {
             fecha = scanner.next();
         } while (!validarFecha());
     }
-    
+
     private static boolean validarFecha() {
         boolean fechaValida = false;
         int[] diasPorMes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -82,27 +82,31 @@ public class CalendarioPruebas {
         dia = Integer.parseInt(valores[1]);
         mes = Integer.parseInt(valores[0]);
         anio = Integer.parseInt(valores[2]);
-        
+
         if ((mes >= 1 && mes <= 12) && (anio > 0)) {
-            if (mes == 2) {
-                if (esBisiesto() && dia <= 29) {
-                    fechaValida = true;
-                } else if (!esBisiesto() && dia <= 28) {
-                    fechaValida = true;
+            if (dia > 0) {
+                if (mes == 2) {
+                    if (esBisiesto() && dia <= 29) {
+                        fechaValida = true;
+                    } else if (!esBisiesto() && dia <= 28) {
+                        fechaValida = true;
+                    } else {
+                        System.out.println("Dia invalido para febrero, puede que el anio no sea bisiesto o ingreso un dia mayor a 29");
+                    }
                 } else {
-                    System.out.println("Dia invalido para febreo");
-                }                
-            } else {
-                if (dia <= diasPorMes[mes - 1]) {
-                    fechaValida = true;
-                } else {
-                    System.out.println("dia invalido");
+                    if (dia <= diasPorMes[mes - 1]) {
+                        fechaValida = true;
+                    } else {
+                        System.out.println("Dia invalido para el mes " + mes);
+                    }
                 }
-            }            
+            } else {
+                System.out.println("El dia no puede ser menor a 1");
+            }
         } else {
             System.out.println("El mes o el anio es invalido");
         }
-        
+
         return fechaValida;
     }
 
