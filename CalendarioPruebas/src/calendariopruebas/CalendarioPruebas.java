@@ -111,68 +111,31 @@ public class CalendarioPruebas {
     }
 
     private static String determinarSiguienteDia() {
+        int[] diasPorMes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         String[] valores = fecha.split("-");
         dia = Integer.parseInt(valores[1]);
         mes = Integer.parseInt(valores[0]);
         anio = Integer.parseInt(valores[2]);
 
-        switch (mes) {
-            case 1:
-                calcularDiaMesConTreintaYUnDias();
-                break;
-            case 2:
-                if ((dia == 28 && esBisiesto()) || dia < 28) {
-                    dia++;
-                } else {
-                    dia = 1;
+        if (mes == 2) {
+            if ((dia == 28 && esBisiesto()) || dia < 28) {
+                dia++;
+            } else {
+                dia = 1;
+                mes++;
+            }
+        } else {
+            if (dia < diasPorMes[mes - 1]) {
+                dia++;
+            } else {
+                dia = 1;
+                if (mes != 12) {
                     mes++;
-                }
-                break;
-            case 3:
-                calcularDiaMesConTreintaYUnDias();
-                break;
-
-            case 4:
-                calcularDiaMesConTreintaDias();
-                break;
-
-            case 5:
-                calcularDiaMesConTreintaYUnDias();
-                break;
-
-            case 6:
-                calcularDiaMesConTreintaDias();
-                break;
-
-            case 7:
-                calcularDiaMesConTreintaYUnDias();
-                break;
-
-            case 8:
-                calcularDiaMesConTreintaYUnDias();
-                break;
-
-            case 9:
-                calcularDiaMesConTreintaDias();
-                break;
-
-            case 10:
-                calcularDiaMesConTreintaYUnDias();
-                break;
-
-            case 11:
-                calcularDiaMesConTreintaDias();
-                break;
-
-            case 12:
-                if (dia == 31) {
-                    dia = 1;
+                } else {
                     mes = 1;
                     anio++;
-                } else {
-                    calcularDiaMesConTreintaYUnDias();
                 }
-                break;
+            }
         }
 
         return obtenerFechaString();
@@ -297,24 +260,6 @@ public class CalendarioPruebas {
             bisiesto = true;
         }
         return bisiesto;
-    }
-
-    private static void calcularDiaMesConTreintaYUnDias() {
-        if (dia < 31) {
-            dia++;
-        } else if (dia == 31) {
-            dia = 1;
-            mes++;
-        }
-    }
-
-    private static void calcularDiaMesConTreintaDias() {
-        if (dia < 30) {
-            dia++;
-        } else if (dia == 30) {
-            dia = 1;
-            mes++;
-        }
     }
 
     private static String obtenerFechaString() {
